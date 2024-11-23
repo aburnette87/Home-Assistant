@@ -1,0 +1,69 @@
+- alias: Run Away Mode Script when I Leave Home
+  id: '1730160565794'
+  triggers:
+  - trigger: zone
+    entity_id: person.andrew
+    zone: zone.home
+    event: leave
+  conditions: []
+  actions:
+  - action: script.away_mode
+    metadata: {}
+    data: {}
+
+- alias: Arm Home at 11PM
+  id: '1729645072575'
+  triggers:
+  - trigger: time
+    at: '23:00:00'
+  conditions: []
+  actions:
+  - parallel:
+    - if:
+      - condition: device
+        domain: lock
+        entity_id: lock.vivint_front_door_lock
+        type: is_unlocked
+      then:
+        domain: lock
+        entity_id: lock.vivint_front_door_lock
+        type: lock
+    - if:
+      - condition: device
+        domain: alarm_control_panel
+        entity_id: alarm_control_panel.vivint_smart_hub
+        type: is_disarmed
+      then:
+        domain: alarm_control_panel
+        entity_id: alarm_control_panel.vivint_smart_hub
+        type: arm_home
+
+- alias: Disarm Home at Dawn
+  id: '1729646385220'
+  triggers:
+  - trigger: time
+    at: sensor.sun_next_dawn
+  conditions: []
+  actions:
+  - action: alarm_control_panel.alarm_disarm
+    metadata: {}
+    data:
+      code: !secret alarm_code
+    target:
+      entity_id: alarm_control_panel.vivint_smart_hub
+
+- alias: Disarm when I Arrive Home
+  id: '1730139479555'
+  triggers:
+  - trigger: zone
+    entity_id: person.andrew
+    zone: zone.home
+    event: enter
+  conditions: []
+  actions:
+  - action: alarm_control_panel.alarm_disarm
+    metadata: {}
+    data:
+      code: !secret alarm_code
+    target:
+      entity_id: alarm_control_panel.vivint_smart_hub

@@ -1,0 +1,35 @@
+- alias: Turn on A/C when I leave Work
+  id: '1730211721384'
+  triggers:
+  - trigger: zone
+    entity_id: person.andrew
+    zone: zone.work
+    event: leave
+  conditions: []
+  actions:
+  - action: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 74
+      hvac_mode: cool
+    target:
+      entity_id: climate.ecobee_thermostat
+
+- alias: Fan on if living room warm and occupied
+  id: '1732353964944'
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.living_room_smartsensor_occupancy
+    to: 'on'
+  conditions:
+  - condition: numeric_state
+    entity_id: sensor.living_room_smartsensor_temperature
+    above: 74
+  actions:
+  - action: fan.set_percentage
+    metadata: {}
+    data:
+      percentage: 100
+    target:
+      entity_id: fan.living_room
