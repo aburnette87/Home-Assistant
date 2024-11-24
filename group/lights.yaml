@@ -1,0 +1,57 @@
+- platform: group
+  name: All Hue
+  entities:
+    - light.kitchen_1_light
+    - light.kitchen_2_light_2
+    - light.kitchen_3_light_3
+    - light.kitchen_4_light_4
+    - light.spotlight_light
+    - light.office_1_light
+    - light.office_2_light_2
+    - light.office_3_light
+    - light.left_nightstand_light
+    - light.right_nightstand_light
+
+- platform: group
+  name: Main Hue
+  entities:
+    - light.kitchen_1_light
+    - light.kitchen_2_light_2
+    - light.kitchen_3_light_3
+    - light.kitchen_4_light_4
+    - light.spotlight_light
+    - light.office_1_light
+    - light.office_2_light_2
+    - light.office_3_light
+
+- platform: group
+  name: Kitchen Hue
+  entities:
+    - light.kitchen_1_light
+    - light.kitchen_2_light_2
+    - light.kitchen_3_light_3
+    - light.kitchen_4_light_4
+
+- platform: group
+  name: Master Bedroom Hue
+  entities:
+    - light.left_nightstand_light
+    - light.right_nightstand_light
+
+- platform: group
+  name: Master Bathroom
+  entities:
+    - light.vanity_lights
+
+- platform: group
+  name: Living Room Lights
+  entities:
+    - light.spotlight_light
+    - light.living_room
+
+- platform: group
+  name: Office Hue
+  entities:
+    - light.office_1_light
+    - light.office_2_light_2
+    - light.office_3_light

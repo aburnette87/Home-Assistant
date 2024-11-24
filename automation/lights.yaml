@@ -33,7 +33,7 @@
     metadata: {}
     data: {}
     target:
-      entity_id: switch.garage_garage_door_lights
+      entity_id: switch.garage_door_lights
 
 - alias: Turn On Main Light when I Arrive Home and it's Dark
   id: '1732354527388'

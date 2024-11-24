@@ -1,0 +1,6 @@
+- platform: group
+  name: Cameras
+  entities:
+    - camera.vivint_doorbell_camera
+    - camera.vivint_driveway_camera
+    - camera.vivint_pool_camera
