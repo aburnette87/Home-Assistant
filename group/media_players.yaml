@@ -1,8 +1,5 @@
 media_players:
   entities:
-    - media_player.android_tv_192_168_68_6
     - media_player.lg_webos_tv_oled55b8pua
-    - media_player.plex_client_lg_tv
-    - media_player.plex_client_nvidia_shield
     - media_player.samsung_qn90aa_75_tv
     - media_player.shield
