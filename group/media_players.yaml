@@ -1,5 +1,0 @@
-media_players:
-  entities:
-    - media_player.lg_webos_tv_oled55b8pua
-    - media_player.samsung_qn90aa_75_tv
-    - media_player.shield

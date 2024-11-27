@@ -10,6 +10,8 @@ homeassistant:
   country: US
   currency: USD
 
-config:
+default_config:
 
-config split: !include_dir_named integration
+automation: !include_dir_merge_list automation
+script: !include_dir_merge_named script
+frontend: !include_dir_merge_named frontend
