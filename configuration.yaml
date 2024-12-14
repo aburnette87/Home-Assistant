@@ -1,17 +1,31 @@
 homeassistant:
-  name: Home
-  latitude: !secret homeassistant_latitude
-  longitude: !secret homeassistant_longitude
-  elevation: !secret homeassistant_elevation
-  unit_system: imperial
-  temperature_unit: F
-  time_zone: America/New_York
-  language: en
-  country: US
-  currency: USD
 
 default_config:
 
-automation: !include_dir_merge_list automation
-script: !include_dir_merge_named script
-frontend: !include_dir_merge_named frontend
+#### Dashboard ###################################
+frontend:
+  themes: !include_dir_merge_named frontend/themes/
+  extra_module_url:
+    - /hacsfiles/hass-hue-icons/hass-hue-icons.js
+
+lovelace:
+  mode: yaml
+  resources:
+    - url: /hacsfiles/hass-hue-icons/hass-hue-icons.js
+      type: module
+    - url: /hacsfiles/lovelace-hue-like-light-card/hue-like-light-card.js
+      type: module
+
+#### Media ###################################
+# media_dirs: !secret media_dirs
+
+#### GUI ###################################
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+#### Directories ###################################
+automation dir: !include_dir_merge_list automation/
+script dir: !include_dir_merge_named script/
+scene dir: !include_dir_merge_list scene/
+template: !include_dir_merge_named template/

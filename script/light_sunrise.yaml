@@ -1,4 +1,7 @@
 light_sunrise_2:
+  mode: parallel
+  alias: Light Sunrise
+  description: "Used for morning alarm."
   fields:
     target_kelvin:
       description: Coldest Kelvin value. This is the end value - most white
@@ -126,6 +129,4 @@ light_sunrise_2:
           target:
             entity_id: "{{ target_light }}"
           action: light.turn_off
-  mode: parallel
-  alias: Light Sunrise
-  description: ""
+

@@ -1,0 +1,41 @@
+hue_scene_all_hue:
+  alias: Hue Scene (All Hue)
+  use_blueprint:
+    path: nilsreiter/ha-scenes.yaml
+    input:
+      target:
+        entity_id:
+          - light.bar_1_light
+          - light.bar_2_light_3
+          - light.kitchen_1_light_4
+          - light.kitchen_2_light_2
+          - light.lightstrip_light
+          - light.office_1_light
+          - light.office_2_light_2
+          - light.office_3_light
+          - light.spotlight_light
+      default_repeat_delay:
+        hours: 0
+        minutes: 0
+        seconds: 1
+      default_use_scene_brightness: true
+      include_mode_color_temp: true
+      skipgroups: false
+      stop_when_lights_turn_off: false
+      default_scene: Unwind
+      default_brightness: 100
+  description: ""
+open_garage_door:
+  alias: Open Garage Door
+  sequence:
+    - action: cover.open_cover
+      target:
+        entity_id: cover.ratgdov25i_4a1c34_door
+  description: ""
+close_garage_door:
+  alias: Close Garage Door
+  sequence:
+    - action: cover.close_cover
+      target:
+        entity_id: cover.ratgdov25i_4a1c34_door
+  description: ""

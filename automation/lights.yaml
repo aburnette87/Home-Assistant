@@ -1,5 +1,5 @@
 - alias: Wake Up
-  id: '1731123391587'
+  id: "1731123391587"
   use_blueprint:
     path: steku/parabolic_alarm.yaml
     input:
@@ -9,46 +9,48 @@
       target_light: light.left_nightstand_light
 
 - alias: Turn off Garage Outside Lights at Sunrise
-  id: '1729405380775'
+  id: "1729405380775"
   triggers:
-  - trigger: sun
-    event: sunrise
-    offset: 0
+    - trigger: sun
+      event: sunrise
+      offset: 0
   actions:
-  - action: switch.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id: switch.garage_door_lights
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.garage_door_lights
 
 - alias: Turn On Garage Outside Lights at Sunset
-  id: '1729405495328'
+  id: "1729405495328"
   triggers:
-  - trigger: sun
-    event: sunset
-    offset: 0
+    - trigger: sun
+      event: sunset
+      offset: 0
   conditions: []
   actions:
-  - action: switch.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: switch.garage_door_lights
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.garage_door_lights
 
 - alias: Turn On Main Light when I Arrive Home and it's Dark
-  id: '1732354527388'
+  id: "1732354527388"
   triggers:
-  - trigger: zone
-    entity_id: person.andrew
-    zone: zone.home
-    event: enter
+    - trigger: zone
+      entity_id: person.andrew
+      zone: zone.home
+      event: enter
   conditions:
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
   actions:
-  - action: light.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: light.main_hue
+    - action: script.turn_on
+      data:
+        variables:
+          scene: Unwind
+      metadata: {}
+      target:
+        entity_id: script.hue_scene_all_hue
