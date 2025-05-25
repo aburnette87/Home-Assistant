@@ -1,0 +1,24 @@
+main_hue_scenes:
+  alias: Main Hue Scenes
+  use_blueprint:
+    path: nilsreiter/ha-scenes.yaml
+    input:
+      target:
+        entity_id:
+        - light.office_1_light
+        - light.office_2_light_2
+        - light.office_3_light
+        - light.kitchen_1_light_4
+        - light.kitchen_2_light_2
+        - light.bar_1_light
+        - light.bar_2_light_3
+        - light.spotlight_light
+        - light.lightstrip_light
+      default_repeat_delay:
+        hours: 0
+        minutes: 0
+        seconds: 1
+      default_use_scene_brightness: false
+      default_brightness: 100
+      include_mode_color_temp: true
+  description: ''

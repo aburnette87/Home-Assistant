@@ -3,204 +3,8 @@ views:
     max_columns: 4
     title: Snapshot
     path: snapshot
-    icon: hue:home
+    icon: hue:bulb-group-classic-4-alt
     sections:
-      - type: grid
-        cards:
-          - type: heading
-            heading_style: subtitle
-            heading: Home
-            badges:
-              - type: entity
-                show_state: true
-                show_icon: true
-                entity: climate.ecobee_thermostat
-                tap_action:
-                  action: more-info
-                state_content:
-                  - fan_mode
-                  - hvac_action
-                color: state
-              - type: entity
-                show_state: true
-                show_icon: true
-                entity: alarm_control_panel.vivint_smart_hub
-                tap_action:
-                  action: more-info
-                color: state
-              - type: entity
-                show_state: true
-                show_icon: true
-                entity: sensor.fpl_1681987440_daily_usage_kwh
-            icon: ''
-          - type: picture-elements
-            image: /api/image/serve/4de88f8dfb986a1f54b22ab7011da710/512x512
-            elements:
-              - type: state-icon
-                entity: light.vanity_lights
-                icon: mdi:lightbulb
-                style:
-                  left: 22%
-                  top: 86%
-                tap_action:
-                  action: toggle
-              - type: state-icon
-                entity: light.right_nightstand_light
-                icon: hue:bulb-classic
-                style:
-                  left: 4%
-                  top: 37%
-                tap_action:
-                  action: toggle
-              - type: state-icon
-                entity: light.left_nightstand_light
-                icon: hue:bulb-classic
-                style:
-                  left: 4%
-                  top: 55%
-                tap_action:
-                  action: toggle
-              - type: state-icon
-                entity: light.office_1_light
-                icon: hue:bulb-classic
-                style:
-                  left: 49%
-                  top: 76%
-                tap_action:
-                  action: none
-                hold_action:
-                  action: none
-              - type: state-icon
-                entity: light.office_2_light_2
-                icon: hue:bulb-classic
-                style:
-                  left: 51%
-                  top: 75%
-                tap_action:
-                  action: none
-                hold_action:
-                  action: none
-              - type: state-icon
-                entity: light.office_3_light
-                icon: hue:bulb-classic
-                style:
-                  left: 50%
-                  top: 74%
-                tap_action:
-                  action: none
-                hold_action:
-                  action: none
-              - type: state-icon
-                entity: light.kitchen_1_light_4
-                icon: hue:bulb-classic
-                style:
-                  left: 68%
-                  top: 39%
-                tap_action:
-                  action: none
-                hold_action:
-                  action: none
-              - type: state-icon
-                entity: light.kitchen_2_light_2
-                icon: hue:bulb-classic
-                style:
-                  left: 61%
-                  top: 46%
-                tap_action:
-                  action: none
-                hold_action:
-                  action: none
-              - type: state-icon
-                entity: light.bar_1_light
-                icon: hue:bulb-classic
-                style:
-                  left: 57%
-                  top: 37%
-                tap_action:
-                  action: none
-                hold_action:
-                  action: none
-              - type: state-icon
-                entity: light.bar_2_light_3
-                icon: hue:bulb-classic
-                style:
-                  left: 65%
-                  top: 31%
-                tap_action:
-                  action: none
-                hold_action:
-                  action: none
-              - type: state-icon
-                entity: light.spotlight_light
-                icon: hue:bulb-classic
-                style:
-                  left: 60%
-                  top: 5%
-                tap_action:
-                  action: none
-                hold_action:
-                  action: none
-              - type: state-icon
-                entity: light.lightstrip_light
-                icon: hue:lightstrip
-                style:
-                  left: 69%
-                  top: 15%
-                tap_action:
-                  action: none
-                hold_action:
-                  action: none
-              - type: state-icon
-                entity: switch.garage_door_lights
-                icon: mdi:lightbulb
-                style:
-                  left: 95%
-                  top: 98%
-                tap_action:
-                  action: toggle
-              - type: state-icon
-                entity: switch.garage_door_lights
-                icon: mdi:lightbulb
-                style:
-                  left: 60%
-                  top: 98%
-                tap_action:
-                  action: toggle
-              - type: state-icon
-                entity: fan.living_room
-                icon: mdi:ceiling-fan
-                style:
-                  left: 60%
-                  top: 12%
-                tap_action:
-                  action: toggle
-                state_color: true
-              - type: state-label
-                entity: sensor.living_room_smartsensor_temperature
-                style:
-                  left: 60%
-                  top: 16%
-                  color: purple
-              - type: state-label
-                entity: sensor.ecobee_thermostat_current_temperature
-                style:
-                  left: 75%
-                  top: 31%
-                  color: purple
-              - type: state-label
-                entity: sensor.tower_fan_temperature
-                style:
-                  left: 13%
-                  top: 45%
-                  color: purple
-                  tap_action:
-                    action: toggle
-                  hold_action:
-                    action: more-info
-            grid_options:
-              columns: 12
-              rows: auto
-        column_span: 1
       - type: grid
         cards:
           - type: heading
@@ -214,13 +18,31 @@ views:
             onClickAction: hue-screen
             offHoldData: script.hue_scene_all_hue
             onHoldData: script.hue_scene_all_hue
-          - type: heading
-            heading_style: subtitle
-            heading: Weather Forecast
-          - show_current: true
-            show_forecast: true
-            type: weather-forecast
-            entity: weather.forecast_home
-            forecast_type: daily
-            secondary_info_attribute: humidity
+          - type: custom:hue-like-light-card
+            title: Main Hue
+            description: false
+            icon: hue:bulb-group
+            entity: light.generic_zigbee_coordinator_ezsp_main_hue
+            offClickAction: hue-screen
+            onClickAction: hue-screen
+            offHoldData: script.main_hue_scenes
+            onHoldData: script.main_hue_scenes
+          - type: custom:hue-like-light-card
+            title: Kitchen Hue
+            description: false
+            icon: hue:bulb-group
+            entity: light.generic_zigbee_coordinator_ezsp_kitchen_hue
+            offClickAction: hue-screen
+            onClickAction: hue-screen
+            offHoldData: script.kitchen_hue_scenes
+            onHoldData: script.kitchen_hue_scenes
+          - type: custom:hue-like-light-card
+            title: Living Room Hue
+            description: false
+            icon: hue:bulb-group
+            entity: light.generic_zigbee_coordinator_ezsp_living_room_hue
+            offClickAction: hue-screen
+            onClickAction: hue-screen
+            offHoldData: script.living_room_hue_scenes
+            onHoldData: script.living_room_hue_scenes
     cards: []
