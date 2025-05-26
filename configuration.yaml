@@ -16,6 +16,21 @@ lovelace:
       type: module
     - url: /hacsfiles/lovelace-hue-like-light-card/hue-like-light-card.js
       type: module
+  dashboards:
+    lovelace-generated:
+      mode: yaml
+      filename: floorplan.yaml
+      title: LL generated
+      icon: mdi:tools
+      show_in_sidebar: true
+      require_admin: false
+    lovelace-lights:
+      mode: yaml
+      filename: hue.yaml
+      title: lights
+      icon: mdi:tools
+      show_in_sidebar: true
+      require_admin: false
 
 #### Media ###################################
 # media_dirs: !secret media_dirs

@@ -1,0 +1,49 @@
+views:
+  - type: sections
+    max_columns: 4
+    title: Snapshot
+    path: snapshot
+    icon: hue:bulb-group-classic-4-alt
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Hue
+          - type: custom:hue-like-light-card
+            title: All Hue
+            description: false
+            icon: hue:bulb-group
+            entities:
+              - light.generic_zigbee_coordinator_ezsp_bar_hue
+              - light.generic_zigbee_coordinator_ezsp_kitchen_hue
+              - light.generic_zigbee_coordinator_ezsp_living_room_hue
+              - light.generic_zigbee_coordinator_ezsp_master_bedroom_hue
+              - light.generic_zigbee_coordinator_ezsp_office_hue
+            offClickAction: hue-screen
+            onClickAction: hue-screen
+            offHoldData: more-info
+            onHoldData: more-info
+          - type: custom:hue-like-light-card
+            title: Main Hue
+            description: false
+            icon: hue:bulb-group
+            entities:
+              - light.generic_zigbee_coordinator_ezsp_bar_hue
+              - light.generic_zigbee_coordinator_ezsp_kitchen_hue
+              - light.generic_zigbee_coordinator_ezsp_living_room_hue
+              - light.generic_zigbee_coordinator_ezsp_office_hue
+            scenes:
+              - entity: scene.colors_tokio
+                color: rgb(168, 25, 255)
+                icon: mdi:home-city
+                title: Tokio (dynamic)
+                activation: hue.activate_scene
+                activationData:
+                  dynamic: true
+                  brightness: 180
+                  speed: 40
+            offClickAction: hue-screen
+            onClickAction: hue-screen
+            offHoldData: script.main_hue_scenes
+            onHoldData: script.main_hue_scenes
+    cards: []
