@@ -9,7 +9,7 @@ frontend:
   extra_module_url:
     - /hacsfiles/hass-hue-icons/hass-hue-icons.js
 
-lovelace: !include_dir_list dashboard
+lovelace:
   mode: yaml
   resources:
     - url: /hacsfiles/hass-hue-icons/hass-hue-icons.js
