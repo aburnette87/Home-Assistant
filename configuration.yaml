@@ -11,23 +11,16 @@ frontend:
 
 lovelace:
   mode: yaml
-#  resources:
-#    - url: /hacsfiles/hass-hue-icons/hass-hue-icons.js
-#      type: module
-#    - url: /hacsfiles/lovelace-hue-like-light-card/hue-like-light-card.js
-#      type: module
+  resources:
+    - url: /hacsfiles/hass-hue-icons/hass-hue-icons.js
+      type: module
+    - url: /hacsfiles/lovelace-hue-like-light-card/hue-like-light-card.js
+      type: module
   dashboards:
-#    lovelace-generated:
-#      mode: yaml
-#      filename: floorplan.yaml
-#      title: LL generated
-#      icon: mdi:tools
-#      show_in_sidebar: true
-#      require_admin: false
     lovelace-lights:
       mode: yaml
-      filename: hue.yaml
-      title: lights
+      filename: hue-control.yaml
+      title: Hue Control
       icon: hue:bulb-group-classic-4-alt
       show_in_sidebar: true
       require_admin: false
@@ -35,7 +28,7 @@ lovelace:
 #### Media ###################################
 # media_dirs: !secret media_dirs
 
-#### To allow creation in the GUI ###################################
+#### To allow creation in the UI ###################################
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
