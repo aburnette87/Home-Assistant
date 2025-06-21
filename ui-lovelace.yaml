@@ -51,7 +51,7 @@ views:
                 tap_action:
                   action: toggle
               - type: state-icon
-                entity: light.right_nightstand_light
+                entity: light.primary_bedroom_right_nightstand_light
                 icon: hue:bulb-classic
                 style:
                   left: 4%
@@ -59,7 +59,7 @@ views:
                 tap_action:
                   action: toggle
               - type: state-icon
-                entity: light.left_nightstand_light
+                entity: light.primary_bedroom_left_nightstand_light
                 icon: hue:bulb-classic
                 style:
                   left: 4%
@@ -67,7 +67,7 @@ views:
                 tap_action:
                   action: toggle
               - type: state-icon
-                entity: light.office_1_light
+                entity: light.office_light_1
                 icon: hue:bulb-classic
                 style:
                   left: 49%
@@ -77,7 +77,7 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
-                entity: light.office_2_light_2
+                entity: light.office_light_2
                 icon: hue:bulb-classic
                 style:
                   left: 51%
@@ -87,7 +87,7 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
-                entity: light.office_3_light
+                entity: light.office_light_3
                 icon: hue:bulb-classic
                 style:
                   left: 50%
@@ -97,7 +97,7 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
-                entity: light.kitchen_1_light_4
+                entity: light.kitchen_light_1
                 icon: hue:bulb-classic
                 style:
                   left: 68%
@@ -107,7 +107,7 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
-                entity: light.kitchen_2_light_2
+                entity: light.kitchen_light_2
                 icon: hue:bulb-classic
                 style:
                   left: 61%
@@ -117,7 +117,7 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
-                entity: light.bar_1_light
+                entity: light.bar_light_1
                 icon: hue:bulb-classic
                 style:
                   left: 57%
@@ -127,7 +127,7 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
-                entity: light.bar_2_light_3
+                entity: light.bar_light_2
                 icon: hue:bulb-classic
                 style:
                   left: 65%
@@ -137,7 +137,7 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
-                entity: light.spotlight_light
+                entity: light.living_room_spot_light
                 icon: hue:bulb-classic
                 style:
                   left: 60%
@@ -147,7 +147,7 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
-                entity: light.lightstrip_light
+                entity: light.living_room_light_strip
                 icon: hue:lightstrip
                 style:
                   left: 69%
