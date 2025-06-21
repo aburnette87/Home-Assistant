@@ -137,7 +137,7 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
-                entity: light.living_room_spot_light
+                entity: light.living_room_spotlight
                 icon: hue:bulb-classic
                 style:
                   left: 60%
