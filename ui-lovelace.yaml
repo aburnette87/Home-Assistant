@@ -196,8 +196,8 @@ views:
               - type: state-label
                 entity: sensor.roaming_smartsensor_temperature
                 style:
-                  left: 27%
-                  top: 31%
+                  left: 30%
+                  top: 27%
                   color: purple
                 tap_action:
                   action: nothing
