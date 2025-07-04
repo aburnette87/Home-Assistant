@@ -12,26 +12,26 @@ views:
             heading: Home
             badges:
               - type: entity
+                entity: climate.ecobee_thermostat
+                color: state
                 show_state: true
                 show_icon: true
-                entity: climate.ecobee_thermostat
                 tap_action:
                   action: more-info
-                color: state
                 state_content:
                   - hvac_action
                   - temperature
               - type: entity
+                entity: alarm_control_panel.vivint_smart_hub
+                color: state
                 show_state: true
                 show_icon: true
-                entity: alarm_control_panel.vivint_smart_hub
                 tap_action:
                   action: more-info
-                color: state
               - type: entity
+                entity: cover.ratgdov25i_4a1c34_door
                 show_state: true
                 show_icon: true
-                entity: cover.ratgdov25i_4a1c34_door
                 color: state
                 tap_action:
                   action: toggle
@@ -196,8 +196,8 @@ views:
               - type: state-label
                 entity: sensor.roaming_smartsensor_temperature
                 style:
-                  left: 60%
-                  top: 16%
+                  left: 27%
+                  top: 31%
                   color: purple
                 tap_action:
                   action: nothing
@@ -272,6 +272,8 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
+                entity: binary_sensor.roaming_smartsensor_occupancy
+                state_color: true
                 style:
                   left: 51%
                   top: 6%
@@ -279,31 +281,29 @@ views:
                   action: none
                 hold_action:
                   action: none
-                state_color: true
-                entity: binary_sensor.roaming_smartsensor_occupancy
               - type: state-icon
+                entity: binary_sensor.vivint_dining_room_motion_sensor
                 style:
                   left: 27%
                   top: 71%
-                entity: binary_sensor.vivint_dining_room_motion_sensor
                 tap_action:
                   action: none
                 hold_action:
                   action: none
-              - type: state-icon
+              - entity: binary_sensor.vivint_doorbell_camera_motion
+                type: state-icon
                 style:
                   left: 27%
                   top: 78%
-                entity: binary_sensor.vivint_doorbell_camera_motion
                 tap_action:
                   action: none
                 hold_action:
                   action: none
               - type: state-icon
+                entity: binary_sensor.vivint_driveway_camera_motion
                 style:
                   left: 90%
                   top: 97%
-                entity: binary_sensor.vivint_driveway_camera_motion
                 tap_action:
                   action: none
                 hold_action:
@@ -318,10 +318,10 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
+                entity: alarm_control_panel.vivint_smart_hub
                 style:
                   left: 50%
                   top: 90%
-                entity: alarm_control_panel.vivint_smart_hub
                 hold_action:
                   action: none
                 tap_action:
@@ -333,7 +333,7 @@ views:
       - type: grid
         cards:
           - type: heading
-            heading: New section
+            heading: Cameras
           - type: vertical-stack
             cards:
               - camera_view: live
