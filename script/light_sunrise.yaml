@@ -1,4 +1,4 @@
-light_sunrise_2:
+light_sunrise:
   mode: parallel
   alias: Light Sunrise
   description: "Used for morning alarm."

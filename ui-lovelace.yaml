@@ -194,7 +194,7 @@ views:
                 hold_action:
                   action: none
               - type: state-label
-                entity: sensor.master_bedroom_smartsensor_temperature
+                entity: sensor.roaming_smartsensor_temperature
                 style:
                   left: 60%
                   top: 16%
@@ -280,7 +280,7 @@ views:
                 hold_action:
                   action: none
                 state_color: true
-                entity: binary_sensor.master_bedroom_smartsensor_occupancy
+                entity: binary_sensor.roaming_smartsensor_occupancy
               - type: state-icon
                 style:
                   left: 27%

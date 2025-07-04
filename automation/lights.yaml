@@ -5,8 +5,8 @@
     input:
       alarm_start_time: input_datetime.time
       workday_sensor: binary_sensor.workday_sensor
-      alarm_script: script.light_sunrise_2
-      target_light: light.left_nightstand_light
+      alarm_script: script.light_sunrise
+      target_light: light.primary_bedroom_left_nightstand_light
 
 - alias: Turn off Garage Outside Lights at Sunrise
   id: "1729405380775"
