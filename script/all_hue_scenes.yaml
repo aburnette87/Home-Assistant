@@ -1,5 +1,5 @@
-main_hue_scenes:
-  alias: Main Hue Scenes
+all_hue_scenes:
+  alias: All Hue Scenes
   description: ''
   use_blueprint:
     path: nilsreiter/ha-scenes.yaml
@@ -15,6 +15,8 @@ main_hue_scenes:
         - light.bar_light_2
         - light.living_room_spotlight
         - light.living_room_light_strip
+        - light.primary_bedroom_right_nightstand_light
+        - light.primary_bedroom_left_nightstand_light
       default_repeat_delay:
         hours: 0
         minutes: 0

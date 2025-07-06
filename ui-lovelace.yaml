@@ -173,7 +173,7 @@ views:
                 tap_action:
                   action: toggle
               - type: state-icon
-                entity: light.living_room
+                entity: light.living_room_ceiling_fan_light
                 icon: mdi:ceiling-fan-light
                 style:
                   left: 60%
@@ -184,7 +184,7 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
-                entity: fan.living_room
+                entity: fan.living_room_ceiling_fan
                 icon: mdi:ceiling-fan
                 style:
                   left: 60%
@@ -196,8 +196,8 @@ views:
               - type: state-label
                 entity: sensor.roaming_smartsensor_temperature
                 style:
-                  left: 30%
-                  top: 27%
+                  left: 28%
+                  top: 25%
                   color: purple
                 tap_action:
                   action: nothing
