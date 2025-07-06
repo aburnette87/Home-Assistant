@@ -5,22 +5,22 @@ away_mode:
       device_id: 9e5109eed6d6bc84be21d5e5d3680ba6
       entity_id: light.vanity_lights
       domain: light
-    - device_id: 0fcdce9e3558b4a033d730950bbaf841
-      domain: climate
+    - type: set_hvac_mode
+      device_id: 0fcdce9e3558b4a033d730950bbaf841
       entity_id: climate.ecobee_thermostat
-      type: set_hvac_mode
+      domain: climate
       hvac_mode: "off"
-    - device_id: 80b5e1db60d2b669d597a4853024b0da
-      domain: lock
+    - type: lock
+      device_id: 80b5e1db60d2b669d597a4853024b0da
       entity_id: lock.vivint_front_door_lock
-      type: lock
-    - device_id: 4f6f930545e325cf48864f58dcc05858
-      domain: alarm_control_panel
+      domain: lock
+    - type: arm_away
+      device_id: 4f6f930545e325cf48864f58dcc05858
       entity_id: alarm_control_panel.vivint_smart_hub
-      type: arm_away
+      domain: alarm_control_panel
     - action: light.turn_off
       target:
-        entity_id: light.generic_zigbee_coordinator_ezsp_all_hue
+        entity_id: light.smlight_all_hue_group
     - action: cover.close_cover
       target:
         entity_id: cover.ratgdov25i_4a1c34_door
