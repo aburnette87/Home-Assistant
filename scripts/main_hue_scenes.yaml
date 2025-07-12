@@ -1,6 +1,5 @@
-- alias: Main Hue Scenes
-  id: main_hue_scenes
-  description: ''
+main_hue_scenes:
+  alias: Main Hue Scenes
   use_blueprint:
     path: nilsreiter/ha-scenes.yaml
     input:
@@ -22,3 +21,4 @@
       default_use_scene_brightness: false
       default_brightness: 100
       include_mode_color_temp: true
+  description: ''

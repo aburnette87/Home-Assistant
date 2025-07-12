@@ -1,6 +1,5 @@
-- alias: Living Room Hue Scenes
-  id: living_room_hue_scenes
-  description: ''
+living_room_hue_scenes:
+  alias: Living Room Hue Scenes
   use_blueprint:
     path: nilsreiter/ha-scenes.yaml
     input:

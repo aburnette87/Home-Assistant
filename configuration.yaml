@@ -35,6 +35,6 @@ scene: !include scenes.yaml
 
 #### YAML controlled ###################################
 automation dir: !include_dir_merge_list automations/
-script dir: !include_dir_merge_list scripts/
+script dir: !include_dir_merge_named scripts/
 scene dir: !include_dir_merge_list scenes/
 template: !include_dir_merge_named templates/
