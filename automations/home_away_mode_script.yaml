@@ -1,5 +1,5 @@
 - alias: Run Away Mode Script when I Leave Home
-  id: "1730160565794"
+  id: '1752359348486'
   description: ''
   triggers:
   - trigger: zone
