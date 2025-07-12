@@ -1,0 +1,9 @@
+- alias: Run Away Mode Script when I Leave Home
+  id: "1730160565794"
+  triggers:
+    - trigger: zone
+      entity_id: person.andrew
+      zone: zone.home
+      event: leave
+  actions:
+    - action: script.away_mode

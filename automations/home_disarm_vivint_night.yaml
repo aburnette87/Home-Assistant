@@ -1,0 +1,11 @@
+- alias: Disarm Home at Dawn
+  id: "1729646385220"
+  triggers:
+    - trigger: time
+      at: sensor.sun_next_dawn
+  actions:
+    - action: alarm_control_panel.alarm_disarm
+      data:
+        code: !secret alarm_code
+      target:
+        entity_id: alarm_control_panel.vivint_smart_hub

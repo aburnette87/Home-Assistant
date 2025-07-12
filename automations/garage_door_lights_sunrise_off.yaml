@@ -1,0 +1,12 @@
+- alias: Turn off Garage Outside Lights at Sunrise
+  id: "1729405380775"
+  triggers:
+    - trigger: sun
+      event: sunrise
+      offset: 0
+  actions:
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.garage_door_lights

@@ -1,5 +1,5 @@
-- id: '1734380160894'
-  alias: Open Garage Door in the Morning
+- alias: Open Garage Door in the Morning
+  id: '1734380160894'
   description: ''
   triggers:
   - trigger: state

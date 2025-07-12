@@ -1,0 +1,13 @@
+- alias: Turn On Garage Outside Lights at Sunset
+  id: "1729405495328"
+  triggers:
+    - trigger: sun
+      event: sunset
+      offset: 0
+  conditions: []
+  actions:
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.garage_door_lights

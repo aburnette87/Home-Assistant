@@ -1,0 +1,16 @@
+- alias: Disarm when I Arrive Home
+  id: "1730139479555"
+  triggers:
+    - trigger: zone
+      entity_id: person.andrew
+      zone: zone.home
+      event: enter
+  actions:
+    - action: alarm_control_panel.alarm_disarm
+      data:
+        code: !secret alarm_code
+      target:
+        entity_id: alarm_control_panel.vivint_smart_hub
+    - action: cover.open_cover
+      target:
+        entity_id: cover.ratgdov25i_4a1c34_door

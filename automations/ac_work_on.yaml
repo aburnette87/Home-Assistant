@@ -1,0 +1,16 @@
+- alias: Turn on A/C when I leave Work
+  id: '1730211721384'
+  triggers:
+  - trigger: zone
+    entity_id: person.andrew
+    zone: zone.work
+    event: leave
+  conditions: []
+  actions:
+  - action: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 74
+      hvac_mode: cool
+    target:
+      entity_id: climate.ecobee_thermostat

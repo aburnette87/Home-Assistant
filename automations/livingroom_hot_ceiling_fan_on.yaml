@@ -1,0 +1,18 @@
+- alias: Fan on if living room warm and occupied
+  id: '1732353964944'
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.living_room_smartsensor_occupancy
+    to: 'on'
+  conditions:
+  - condition: numeric_state
+    entity_id: sensor.living_room_smartsensor_temperature
+    above: 74
+  actions:
+  - action: fan.set_percentage
+    metadata: {}
+    data:
+      percentage: 100
+    target:
+      entity_id: fan.living_room

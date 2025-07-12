@@ -1,0 +1,19 @@
+- alias: Turn On Main Light when I Arrive Home and it's Dark
+  id: "1732354527388"
+  trigger:
+    - platform: zone
+      entity_id: person.andrew
+      zone: zone.home
+      event: enter
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+  action:
+    - service: script.turn_on
+      target:
+        entity_id: script.hue_scene_all_hue
+      data:
+        variables:
+          scene: Unwind
+  mode: single
