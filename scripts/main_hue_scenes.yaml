@@ -1,5 +1,5 @@
-main_hue_scenes:
-  alias: Main Hue Scenes
+- alias: Main Hue Scenes
+  id: main_hue_scenes
   description: ''
   use_blueprint:
     path: nilsreiter/ha-scenes.yaml

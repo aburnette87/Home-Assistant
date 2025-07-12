@@ -1,5 +1,6 @@
-away_mode:
-  alias: Away Mode
+- alias: Away Mode
+  id: away_mode
+  description: ''
   sequence:
     - type: turn_off
       device_id: 9e5109eed6d6bc84be21d5e5d3680ba6
