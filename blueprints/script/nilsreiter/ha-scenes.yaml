@@ -21,12 +21,27 @@ blueprint:
     Savanna sunset\n```\n\nIf called as part of another script, make sure to use the
     action `script.turn_on`, so that it runs in the background ([see here](https://www.home-assistant.io/integrations/script/#waiting-for-script-to-complete)):\n\n```\naction:
     script.turn_on\ndata:\n  variables:\n    scene: Savanna sunset\nmetadata: {}\ntarget:\n
-    \ entity_id: script.hue_like_scenes\n```\n\n\n\n## Changelog \n\n### 3.3\n\n-
-    When launching the script, it is now possible to specify your own colors. If the
-    script is called with specified colors, the scene changes to \"Special: My scene\".
-    There is no limit on the number of colors. It is probably the best use to define
-    a button to call the script with specific colors. \n  The YAML code for such a
-    call looks like this:\n    ```\n    tap_action:\n      action: perform-action\n
+    \ entity_id: script.hue_like_scenes\n```\n\n## Changelog \n\n### 3.5\n\n- Fixed
+    typos in the examples\n- Added a new field called \"Initial Action\", used to
+    specify actions that run before the main loop. Can be empty.\n- (Some) support
+    for RGBW color mode: For lights that *only* support RGB or RGBW color modes, the
+    color is automatically converted into RGB/RGBW. In case of RGBW, the white value
+    is set to 0. This probably doesn't work perfectly. If you encounter issues, please
+    try with turning the lights off first, using the new initial action feature.\n-
+    Simplified some of the template magic by using new functions, therefore minimum
+    Home Assistant version is now 2025.4.\n\n### 3.4\n\n- You can now specify a label,
+    which will then be added to all participating lights. **This requires [Spook](https://spook.boo)
+    to be installed**, which can be done via HACS. Assigning a label makes it easier
+    to control the brightness of the participating lights. It is best to use one label
+    per script, and not to use these labels for anything else, because the script
+    first removes the label from all entities.\n- For specifying your own scene, it
+    is no longer necessary to also specify a brightness (i.e., you can omit the \"b\"
+    key in the object). \n- Specifying your own scene is no longer a required argument\n\n###
+    3.3\n\n- When launching the script, it is now possible to specify your own colors.
+    If the script is called with specified colors, the scene changes to \"Special:
+    My scene\". There is no limit on the number of colors. It is probably the best
+    use to define a button to call the script with specific colors. \n  The YAML code
+    for such a call looks like this:\n    ```\n    tap_action:\n      action: perform-action\n
     \     perform_action: ENTITY_ID_OF_THE_SCRIPT\n      target: {}\n      data:\n
     \       scene: \"Special: My scene\"\n        repeat_delay:\n          hours:
     0\n          minutes: 0\n          seconds: 30\n        onlyonlights: false\n
@@ -84,7 +99,7 @@ blueprint:
     https://www.flickr.com/photos/130079987@N02/16342014082\n- Crocus: https://unsplash.com/photos/close-up-photo-of-purple-petaled-flower-hB_xgEXucQs"
   author: Nils Reiter
   homeassistant:
-    min_version: 2024.06.00
+    min_version: 2025.04.00
   input:
     target:
       name: Target
@@ -95,6 +110,13 @@ blueprint:
           entity:
           - domain:
             - light
+    label:
+      name: Label
+      description: If selected, the script assigns the label to all participating
+        lights when it starts.
+      default:
+      selector:
+        label: {}
     scene_pre_selection:
       name: Scenes
       description: Select scenes to be offered in the UI
@@ -349,8 +371,8 @@ blueprint:
           - 'Special: Random'
           - 'Special: My scene'
           multiple: true
-          sort: false
           custom_value: false
+          sort: false
     default_section:
       name: Script defaults
       icon: mdi:cogs
@@ -399,8 +421,8 @@ blueprint:
               min: 1.0
               max: 100.0
               unit_of_measurement: '%'
-              mode: slider
               step: 1.0
+              mode: slider
           default: 80
     random_section:
       name: Random
@@ -416,8 +438,8 @@ blueprint:
             number:
               min: 0.0
               max: 359.0
-              mode: slider
               step: 1.0
+              mode: slider
           default: 0
         hue_max:
           name: Hue maximum value
@@ -427,8 +449,8 @@ blueprint:
             number:
               min: 1.0
               max: 360.0
-              mode: slider
               step: 1.0
+              mode: slider
           default: 360
         sat_min:
           name: Saturation minimum value
@@ -438,8 +460,8 @@ blueprint:
             number:
               min: 0.0
               max: 100.0
-              mode: slider
               step: 1.0
+              mode: slider
           default: 99
         sat_max:
           name: Saturation maximum value
@@ -449,9 +471,17 @@ blueprint:
             number:
               min: 1.0
               max: 101.0
-              mode: slider
               step: 1.0
+              mode: slider
           default: 101
+    initial_action:
+      name: Initial action
+      description: The action(s) specified here are executed before any light settings
+        are  changed. They can be used to, e.g., turn off other effects currently  running
+        on the lights.
+      default: []
+      selector:
+        action: {}
     include_mode_color_temp:
       name: Include bulbs with `color_temp`.
       description: If enabled, the script will always include bulbs that support `color_temp`
@@ -497,8 +527,9 @@ blueprint:
         the  script is called.
       selector:
         entity:
-          domain:
-          - input_text
+          filter:
+          - domain:
+            - input_text
           multiple: false
     transition:
       name: Transition time
@@ -510,8 +541,8 @@ blueprint:
           min: 0.0
           max: 30.0
           unit_of_measurement: s
-          mode: slider
           step: 1.0
+          mode: slider
     stop_when_lights_turn_off:
       name: Stop the scene when the number of participating lights changes?
       description: When does the script stop? If set to true (the default), the script
@@ -557,7 +588,7 @@ fields:
       This is useful if you want to have on-the-fly control over the participating  lights.
     required: false
     default: !input default_onlyonlights
-    example: false
+    example: 'false'
     selector:
       boolean:
   use_scene_brightness:
@@ -565,7 +596,7 @@ fields:
     description: If set, the script uses brightness values pre-defined for each scene.
     required: false
     default: !input default_use_scene_brightness
-    example: false
+    example: 'false'
     selector:
       boolean:
   brightness:
@@ -573,7 +604,7 @@ fields:
     description: If set, all lights will be set to the given brightness percentage.
       In loop mode, brightness is only applied on the first iteration, allowing brightness
       changes afterwards.
-    example: 50
+    example: '50'
     required: false
     default: !input default_brightness
     selector:
@@ -583,16 +614,15 @@ fields:
         unit_of_measurement: '%'
   my_scene:
     name: Define your own scene with your own colors
-    description: "Expects a dictionary containing \"c\" and \"b\" keys. The \"c\"
-      key contains a  list of colors in \"XY\" format, the \"b\" key contains a single
-      float between 0 and 1  specifying the brightness. A valid entry would be:\n
-      \ `{\"c\":[[0.2361,0.2152],[0.2557,0.2325]],\"b\":0.6}`\nThere is no limit on
-      the number of colors. Specifying a scene here overwrites the selection in the
-      dropdown above (i.e., the field \"scene\")."
-    required: true
+    description: "Expects a dictionary containing a \"c\" key. The \"c\" key contains
+      a  list of colors in \"XY\" format. A valid entry would be:\n  `{\"c\":[[0.2361,0.2152],[0.2557,0.2325]]}`\nThere
+      is no limit on the number of colors. Specifying a scene here overwrites the
+      selection in the dropdown above (i.e., the field \"scene\")."
+    required: false
     selector:
       object:
 variables:
+  label: !input label
   default_scene: !input default_scene
   default_repeat_delay: !input default_repeat_delay
   default_onlyonlights: !input default_onlyonlights
@@ -749,9 +779,9 @@ variables:
     \ {{scenes | selectattr('n', 'eq', split_scene[1] | trim) | selectattr('s', 'eq',
     split_scene[0]) | first | default('') }}\n{% else %}\n  {{scenes | selectattr('n',
     'eq', scene) | first | default('') }}\n{% endif %}"
-  brightness_value: "{% if use_scene_brightness %}\n  {{ (scene_name.b*100)|round(0,
-    'ceil') }}\n{% elif brightness %}\n  {{ brightness }}\n{% else %}\n  x\n{% endif
-    %}"
+  brightness_value: "{% if my_scene %}\n  {{ brightness }}\n{% elif use_scene_brightness
+    %}\n  {{ (scene_name.b*100)|round(0, 'ceil') }}\n{% elif brightness %}\n  {{ brightness
+    }}\n{% else %}\n  x\n{% endif %}"
   lights: "{% set ns = namespace(areas=[], l=[], lights_temporary=[]) %}\n\n## collect
     areas\n{% if target.area_id is defined %}\n  {% if target.area_id is iterable
     and not target.area_id is string %}\n    {% set ns.areas = ns.areas + target.area_id
@@ -765,7 +795,7 @@ variables:
     %}\n\n{% if target.entity_id is defined %}\n  {% if target.entity_id is iterable
     and not target.entity_id is string %}\n    {% set ns.l = ns.l + (target.entity_id|list)
     %}\n  {% else %}\n    {% set ns.l = ns.l + [target.entity_id] %}\n  {% endif %}\n{%
-    endif %}\n\n ## process devices\n{% if target.device_id is defined %}\n  {% if
+    endif %}\n\n## process devices\n{% if target.device_id is defined %}\n  {% if
     target.device_id is iterable and not target.device_id is string %}\n    {% for
     f in target.device_id %}\n      {% set ns.l = ns.l + device_entities(f)|select('match',
     'light.')|list %}\n    {% endfor %}\n  {% else %}\n    {% set ns.l = ns.l + device_entities(target.device_id)|select('match',
@@ -783,12 +813,13 @@ variables:
     set ns.lights_temporary = ns.lights_temporary + [ll] %}\n    {% endif %}\n{%-
     endfor -%}\n{% set ns.l = ns.lights_temporary|list %}\n{% endif %}\n\n\n{% set
     ns.lights_temporary = [] %}\n{%- for ll in ns.l %}\n  {%- set colormodes = state_attr(ll,
-    \"supported_color_modes\") -%}\n  {%- if \"xy\" in colormodes or \"rgb\" in colormodes
-    or (include_mode_color_temp and \"color_temp\" in colormodes) or (not include_mode_color_temp
-    and scene_name.n in [\"Bright\", \"Concentrate\", \"Cool bright\", \"Dimmed\",
-    \"Energize\", \"Nightlight\", \"Read\", \"Relax\", \"Rest\"]) -%}\n    {% set
-    ns.lights_temporary = ns.lights_temporary + [ll] %}\n  {%- endif -%}\n{%- endfor
-    -%}\n{% set ns.l = ns.lights_temporary|list %}\n\n{{ ns.l }}"
+    \"supported_color_modes\") -%}\n  {%- if (intersect(colormodes, [\"xy\", \"rgb\",
+    \"rgbw\"]) | count > 0) or (include_mode_color_temp and \"color_temp\" in colormodes)
+    or (not include_mode_color_temp and scene_name.n in [\"Bright\", \"Concentrate\",
+    \"Cool bright\", \"Dimmed\", \"Energize\", \"Nightlight\", \"Read\", \"Relax\",
+    \"Rest\"]) -%}\n    {% set ns.lights_temporary = ns.lights_temporary + [ll] %}\n
+    \ {%- endif -%}\n{%- endfor -%}\n{% set ns.l = ns.lights_temporary|list %}\n\n{{
+    ns.l }}"
 sequence:
 - choose:
   - conditions: '{{ lights | count == 0 }}'
@@ -797,19 +828,32 @@ sequence:
 - choose:
   - conditions: '{{ report_entity is defined }}'
     sequence:
-    - service: input_text.set_value
+    - action: input_text.set_value
       data:
         value: '{{ scene_name.n }}'
       target:
         entity_id: !input report_entity
 - if: '{{ debug }}'
   then:
-  - service: logbook.log
+  - action: logbook.log
     data:
       name: '{{ this.attributes.friendly_name }}'
       message: 'Running dynamic scene {{ scene }} with {{ lights|length }} lights:
         {{ lights|list }}.'
       entity_id: '{{ this.entity_id }}'
+- if: '{{ label != null and integration_entities(''spook'')|length > 0 }}'
+  then:
+  - variables:
+      labelled_lights: '{{ label_entities(label) }}'
+  - action: homeassistant.remove_label_from_entity
+    data:
+      label_id: '{{ label }}'
+      entity_id: '{{ labelled_lights }}'
+  - action: homeassistant.add_label_to_entity
+    data:
+      label_id: '{{ label }}'
+      entity_id: '{{ lights }}'
+- sequence: !input initial_action
 - repeat:
     while: "{{ \n    (repeat.index == 1) or \n    (\n      (repeat_delay.hours > 0
       or repeat_delay.minutes > 0 or repeat_delay.seconds > 0) and\n      (stop_when_lights_turn_off
@@ -819,7 +863,7 @@ sequence:
     sequence:
     - if: '{{ debug }}'
       then:
-      - service: logbook.log
+      - action: logbook.log
         data:
           name: '{{ this.attributes.friendly_name }}'
           message: Entering loop {{ repeat.index }}
@@ -834,22 +878,48 @@ sequence:
         for_each: '{{ lights }}'
         sequence:
         - variables:
-            datadict: "{% if scene_name.n == \"Colorloop\" %}\n  {% set oldcol = state_attr(repeat.item,
-              \"hs_color\") %}\n  {% if first or (oldcol == None) %}\n    {% set dd
-              = {\"hs_color\": [ range(hue_min|default(0),hue_max|default(360))|random,
+            datadict: "{# Macro generated by Claude and adapted #}\n{% macro xy_to_rgb(x,
+              y, Y=1.0, scale_to_255=true) %}\n  {# Step 1: Convert xy to XYZ #}\n
+              \ {%- set X = (x * Y) / y -%}\n  {%- set Z = ((1 - x - y) * Y) / y -%}\n
+              \ \n  {# Step 2: Convert XYZ to linear RGB using sRGB matrix #}\n  {%-
+              set linear_r = 3.2406 * X - 1.5372 * Y - 0.4986 * Z -%}\n  {%- set linear_g
+              = -0.9689 * X + 1.8758 * Y + 0.0415 * Z -%}\n  {%- set linear_b = 0.0557
+              * X - 0.2040 * Y + 1.0570 * Z -%}\n  \n  {# Step 3: Apply gamma correction
+              #}\n  {%- set gamma_r = 12.92 * linear_r if linear_r <= 0.0031308 else
+              1.055 * (linear_r ** (1/2.4)) - 0.055 -%}\n  {%- set gamma_g = 12.92
+              * linear_g if linear_g <= 0.0031308 else 1.055 * (linear_g ** (1/2.4))
+              - 0.055 -%}\n  {%- set gamma_b = 12.92 * linear_b if linear_b <= 0.0031308
+              else 1.055 * (linear_b ** (1/2.4)) - 0.055 -%}\n  \n  {# Step 4: Clamp
+              values to 0-1 range #}\n  {%- set clamped_r = [0, [gamma_r, 1] | min]
+              | max -%}\n  {%- set clamped_g = [0, [gamma_g, 1] | min] | max -%}\n
+              \ {%- set clamped_b = [0, [gamma_b, 1] | min] | max -%}\n  \n  {# Step
+              5: Scale to 0-255 if requested, otherwise return 0-1 range #}\n  {%-
+              if scale_to_255 -%}\n    {{ [ (clamped_r * 255) | round | int, (clamped_g
+              * 255) | round | int, (clamped_b * 255) | round | int ] }}\n  {%- else
+              -%}\n    {{ [ clamped_r, clamped_g, clamped_b ] }}\n  {%- endif -%}\n{%
+              endmacro %}\n\n{% if scene_name.n == \"Colorloop\" %}\n  {% set oldcol
+              = state_attr(repeat.item, \"hs_color\") %}\n  {% if first or (oldcol
+              == None) %}\n    {% set dd = {\"hs_color\": [ range(hue_min|default(0),hue_max|default(360))|random,
               range(sat_min|default(99),sat_max|default(101))|random] } %}\n  {% else
               %}\n    {% set dd = { \n      \"hs_color\": [(oldcol[0]+10)%360,oldcol[1]],\n
               \     \"transition\": ( repeat_delay.hours*60*60 + repeat_delay.minutes*60
               + repeat_delay.seconds )\n    } %}\n  {% endif %}\n{% elif scene_name.n
               == \"Random\" %}\n  {% set xy = colors[repeat.index % colors|length]
               %}\n  {% set dd = {\"hs_color\": [xy|first, xy|last] } %}\n{% else %}\n
-              \ {% set xy = colors[repeat.index % colors|length] %}\n  {% set dd =
-              {\"xy_color\": [xy|first, xy|last] } %}\n{% endif %}\n\n{% if brightness_value
-              != \"x\" and first %}\n  {% set bd = {\"brightness_pct\": brightness_value
-              } %}\n  {% set dd = dict(dd, **bd) %}\n{% endif %}\n\n{% if transition
-              and scene != \"Colorloop\" %}\n  {% set bd = {\"transition\": transition
-              } %}\n  {% set dd = dict(dd, **bd) %}\n{% endif %}\n{{ dd }}"
-        - service: light.turn_on
+              \ {% if state_attr(repeat.item, \"supported_color_modes\") == [\"rgbw\"]
+              %}\n    {% set xy = colors[repeat.index % colors|length] %}\n    {%
+              set dd = {\"rgbw_color\": (xy_to_rgb(xy|first, xy|last) | from_json)
+              + [0] } %}\n  {% elif state_attr(repeat.item, \"supported_color_modes\")
+              == [\"rgb\"] %}\n    {% set xy = colors[repeat.index % colors|length]
+              %}\n    {% set dd = {\"rgb_color\": xy_to_rgb(xy|first, xy|last) | from_json
+              } %}\n  {% else %}\n    {% set xy = colors[repeat.index % colors|length]
+              %}\n    {% set dd = {\"xy_color\": [xy|first, xy|last] } %}\n  {% endif
+              %}\n{% endif %}\n\n{% if brightness_value != \"x\" and first %}\n  {%
+              set bd = {\"brightness_pct\": brightness_value } %}\n  {% set dd = dict(dd,
+              **bd) %}\n{% endif %}\n\n{% if transition and scene != \"Colorloop\"
+              %}\n  {% set bd = {\"transition\": transition } %}\n  {% set dd = dict(dd,
+              **bd) %}\n{% endif %}\n{{ dd }}"
+        - action: light.turn_on
           data: '{{ datadict }}'
           target:
             entity_id: '{{ repeat.item }}'
@@ -857,7 +927,7 @@ sequence:
     - if: '{{ stop_when_lights_turn_off }}'
       then:
       - wait_for_trigger:
-        - platform: template
+        - trigger: template
           value_template: '{{ (( lights | list | count ) != (lights | select(''is_state'',
             ''on'') | list | count)) }}'
         timeout: '{{ repeat_delay }}'

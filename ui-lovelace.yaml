@@ -12,7 +12,7 @@ views:
             heading: Home
             badges:
               - type: entity
-                entity: climate.ecobee_thermostat
+                entity: climate.thermostat
                 color: state
                 show_state: true
                 show_icon: true
@@ -29,7 +29,7 @@ views:
                 tap_action:
                   action: more-info
               - type: entity
-                entity: cover.ratgdov25i_4a1c34_door
+                entity: cover.garage_door
                 show_state: true
                 show_icon: true
                 color: state
@@ -173,7 +173,7 @@ views:
                 tap_action:
                   action: toggle
               - type: state-icon
-                entity: light.living_room_ceiling_fan_light
+                entity: light.ceiling_fan_light
                 icon: mdi:ceiling-fan-light
                 style:
                   left: 60%
@@ -184,7 +184,7 @@ views:
                 hold_action:
                   action: none
               - type: state-icon
-                entity: fan.living_room_ceiling_fan
+                entity: fan.ceiling_fan
                 icon: mdi:ceiling-fan
                 style:
                   left: 60%
@@ -204,7 +204,7 @@ views:
                 hold_action:
                   action: nothing
               - type: state-label
-                entity: sensor.ecobee_thermostat_current_temperature
+                entity: sensor.thermostat_current_temperature
                 style:
                   left: 75%
                   top: 31%
@@ -263,7 +263,7 @@ views:
                 tap_action:
                   action: toggle
               - type: state-icon
-                entity: cover.ratgdov25i_4a1c34_door
+                entity: cover.garage_door
                 style:
                   left: 76%
                   top: 87%

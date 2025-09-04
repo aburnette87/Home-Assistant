@@ -1,0 +1,29 @@
+- name: All Hue Energize
+  icon: mdi:white-balance-sunny
+  entities:
+    input_boolean.scene_all_hue_energize: on
+
+- name: All Hue Savanna Sunset
+  icon: mdi:weather-sunset
+  entities:
+    input_boolean.scene_all_hue_savanna_sunset: on
+
+- name: Main Hue Bright
+  icon: mdi:brightness-7
+  entities:
+    input_boolean.scene_main_hue_bright: on
+
+- name: Main Hue Concentrate
+  icon: mdi:head-lightbulb
+  entities:
+    input_boolean.scene_main_hue_concentrate: on
+
+- name: Main Hue Nightlight
+  icon: mdi:weather-night
+  entities:
+    input_boolean.scene_main_hue_nightlight: on
+
+- name: Main Hue Savanna Sunset
+  icon: mdi:weather-sunset
+  entities:
+    input_boolean.scene_main_hue_savanna_sunset: on

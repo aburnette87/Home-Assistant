@@ -11,8 +11,39 @@ views:
             heading: Hue
           - type: custom:hue-like-light-card
             title: All Hue
+            icon: hue:bulb-group
+            description: false
+
+            entities:
+              - light.bar_hue
+              - light.kitchen_hue
+              - light.living_room_hue
+              - light.office_hue
+              - light.primary_bedroom_hue
+
+            # Keep your “hue-screen” behavior
+            offClickAction: hue-screen
+            onClickAction: hue-screen
+            offHoldAction: hue-screen
+            onHoldAction: hue-screen
+
+            # Manually define scenes that call your Nilsreiter script
+            scenes:
+              - entity: scene.all_hue_energize
+                title: Energize
+                icon: mdi:white-balance-sunny
+                color: "#00BFFF"
+
+              - entity: scene.all_hue_savanna_sunset
+                title: Savanna sunset
+                icon: mdi:weather-sunset
+                color: "#FF8C00"
+                    
+          - type: custom:hue-like-light-card
+            title: All Hue
             description: false
             icon: hue:bulb-group
+            scenes: []
             entities:
               - light.bar_hue
               - light.kitchen_hue

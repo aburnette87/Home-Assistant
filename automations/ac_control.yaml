@@ -1,0 +1,96 @@
+# -----------------------------------------------------------------------------
+# Automation: Set Ecobee Cooling Setpoint Based on Presence and Outdoor Temp
+# Runs only when:
+#   • I'm home
+#   • I just arrived home
+#   • I just left work on a workday (pre-cool)
+# Blocks when I'm away (incl. periodic/temp triggers) or alarm is armed_away.
+# -----------------------------------------------------------------------------
+
+- alias: Set Ecobee Cooling Setpoint Based on Presence and Outdoor Temp
+  id: "set_ecobee_based_on_presence_and_outdoor_temp"
+  mode: single
+
+  # -----------------------------------------------------------------------------
+  # Triggers
+  # -----------------------------------------------------------------------------
+  trigger:
+    - platform: state
+      entity_id: sensor.roaming_smartsensor_temperature
+      id: temp_update
+
+    - platform: time_pattern
+      minutes: "/15"
+      id: every_15
+
+    - platform: state
+      entity_id: person.andrew
+      from: "not_home"
+      to: "home"
+      id: arrive_home
+
+    - platform: zone
+      entity_id: person.andrew
+      zone: zone.work
+      event: leave
+      id: leave_work
+
+  # -----------------------------------------------------------------------------
+  # Conditions
+  # Must be TRUE to proceed:
+  #   1) Alarm is NOT armed_away, AND
+  #   2) (I'm home) OR (this run was triggered by arrive_home) OR (triggered by
+  #      leave_work AND it's a workday)
+  # -----------------------------------------------------------------------------
+  condition:
+    # 1) Block when the alarm is armed_away
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: alarm_control_panel.vivint_smart_hub
+          state: "armed_away"
+
+    # 2) Presence/trigger gating
+    - condition: or
+      conditions:
+        # Already home -> allow periodic/temp updates
+        - condition: state
+          entity_id: person.andrew
+          state: "home"
+
+        # Just arrived home
+        - condition: template
+          value_template: "{{ trigger.id == 'arrive_home' }}"
+
+        # Just left work (pre-cool) AND it's a workday
+        - condition: and
+          conditions:
+            - condition: template
+              value_template: "{{ trigger.id == 'leave_work' }}"
+            - condition: state
+              entity_id: binary_sensor.workday_sensor
+              state: "on"
+
+  # -----------------------------------------------------------------------------
+  # Actions
+  # If thermostat is OFF -> set COOL, then set desired temp.
+  # -----------------------------------------------------------------------------
+  action:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: climate.thermostat
+              state: "off"
+          sequence:
+            - action: climate.set_hvac_mode
+              target:
+                entity_id: climate.thermostat
+              data:
+                hvac_mode: "cool"
+            - delay: "00:00:02"   # small pause helps cloud thermostats
+
+    - action: climate.set_temperature
+      target:
+        entity_id: climate.thermostat
+      data:
+        temperature: "{{ states('sensor.desired_cooling_temperature') | float }}"
