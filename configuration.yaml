@@ -1,9 +1,12 @@
 homeassistant:
   name: "Bonanza"
+  customize: !include_dir_merge_named customize/entities/
+  customize_glob: !include customize/customize_glob.yaml
+
 
 default_config:
 
-#### Dashboard ###################################
+# ---------------- Dashboards ----------------
 frontend:
   themes: !include_dir_merge_named frontend/themes/
   extra_module_url:
@@ -25,24 +28,9 @@ lovelace:
       show_in_sidebar: true
       require_admin: false
 
-#### Media ###################################
-# media_dirs: !secret media_dirs
-
-#### To allow creation in the UI ###################################
-automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
-
-#### YAML controlled ###################################
-automation dir: !include_dir_merge_list automations/
-script dir: !include_dir_merge_named scripts/
-scene dir: !include_dir_merge_list scenes/
-template: !include_dir_merge_list templates/
-
-input_boolean:
-  scene_all_hue_energize:
-  scene_all_hue_savanna_sunset:
-  scene_main_hue_bright:
-  scene_main_hue_concentrate:
-  scene_main_hue_nightlight:
-  scene_main_hue_savanna_sunset:
+# ---------------- Split config ----------------
+automation:     !include_dir_merge_list  automations/
+script:         !include_dir_merge_named scripts/
+scene:          !include_dir_merge_list  scenes/
+template:       !include_dir_merge_list  templates/
+input_boolean:  !include_dir_merge_named input_booleans/
